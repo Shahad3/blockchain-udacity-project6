@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medication Supply chain</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">Medication Supply chain</h1>
+    </div>
+
+    <div id="ftc-harvest">
+        <h2>Product Overview</h2>
+        <div class="form-group">
+            SKU
+            <br>
+            <input class="input-field" type="number" id="sku" name="sku" value=1><br>
+            UPC
+            <br>
+            <input type="number" id="upc" name="upc" value=1><br>
+            Current Owner ID
+            <br>
+            <input type="text" id="ownerID" name="ownerID" value="0x963865f57804b38459dd4b2da2f760211a200438" size="50"><br>
+            <div class=button-div>
+                <button class="btn-fetchOne" id="button" type="button" data-id="7">Fetch Data 1</button>
+                <button class="btn-fetchTwo" id="button" type="button" data-id="8">Fetch Data 2</button>
+            </div>
+        </div>
+        <div class=form-break></div>
+        <h2>Manufactory Details</h2>
+        <div class="form-group">
+            Manufactory ID
+            <br>
+            <input type="text" id="originManufactoryID" name="originManufactoryID" value="0x99c289eb2aacec289631a5ddf62cf27a63d4494f"
+                size="50"><br>
+            Manufactory Name
+            <br>
+            <input type="text" id="originManufactoryName" name="originManufactoryName" value="JD"><br>
+            Manufactory Information
+            <br>
+            <input type="text" id="originManufactoryInformation" name="originManufactoryInformation" value="Yarra Valley"><br>
+           
+            <br>
+            <button class="btn-harvest" id="button" type="button" onclick="App.createItem()">Create</button>
+            
+        </div>
+        <div class=form-break></div>
+        <h2>Product Details</h2>
+        <div class="form-group">
+            Product Notes
+            <br>
+            <input type="text" id="productNotes" name="productNotes" value="Best beans for Espresso" size="60"><br>
+            Product Price
+            <br>
+            <input type="number" id="productPrice" name="productPrice" value=1>ETH<br>
+            Distributor ID
+            <br>
+            <input type="text" id="distributorID" name="distributorID" value="0xf1b1bcd24dad92303dd9fe78be639f7bcf9c238d"
+                size="50">
+            <br>
+            Retailer ID
+            <br>
+            <input type="text" id="retailerID" name="retailerID" value="0x0fb2bfefd526966c87efa19f6693d50971763fc2"
+                size="50"><br>
+            Distributor ID
+            <br>
+            <input type="text" id="consumerID" name="consumerID" value="0x5d777e9127b28fb119e81a6304278a0a21bef1c4"
+                size="50"><br>
+            <br>
+            <button class="btn-buy" id="button" type="button" onclick="App.odrerItem()">Order</button>
+            <button class="btn-ship" id="button" type="button" onclick="App.shipItem()">Ship</button>
+            <button class="btn-ship" id="button" type="button" onclick="App.distributeItem()">Distribute</button>
+            <button class="btn-receive" id="button" type="button" onclick="App.provideItem()">Provide</button>
+            <button class="btn-purchase" id="button" type="button" onclick="App.buyItem()">Buy</button>
+        </div>
+        <div class=form-break></div>
+        <hr>
+    </div>
+
+    <h2>Transaction History<span id="ftc-history"></span></h2>
+    <div>
+        <ul id="ftc-events">
+            <!-- Events will appear here from app.js -->
+        </ul>
+        <br>
+        <hr>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- <script src="js/web3.min.js"></script> -->
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
