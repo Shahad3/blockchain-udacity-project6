@@ -151,26 +151,26 @@ App = {
             }
     },
 
-    createItem: function(event) {
+    createItem: async function(event) {
         // event.preventDefault();
         // var processId = parseInt($(event.target).data('id'));
 
-        App.contracts.SupplyChain.deployed().then(function(instance) {
-            return instance.createItem(
+        let instance = await App.contracts.SupplyChain.deployed();
+        console.log(instance)
+        console.log(App.upc, " - ", App.metamaskAccountID," - ", App.originManufactoryName, " - ",
+        App.originManufactoryInformation,
+        " - ", App.productNotes,
+        " - ", App.productPrice)
+        await instance.createItem(
                 App.upc, 
                 App.metamaskAccountID, 
                 App.originManufactoryName, 
-                App.originManufactoryInformation,
+                "App.originManufactoryInformation",
                 App.productNotes,
                 App.productPrice
             );
-            console.log ("gmgmkm  " + instance)
-        }).then(function(result) {
-            $("#ftc-item").text(result);
-            console.log('createItem',result);
-        }).catch(function(err) {
-            console.log(err.message);
-        });
+
+            
     },
 
     orderItem: function (event) {

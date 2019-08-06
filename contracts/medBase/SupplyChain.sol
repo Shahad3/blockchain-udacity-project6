@@ -80,8 +80,8 @@ contract SupplyChain {
     _;
     uint _price = items[_upc].productPrice;
     uint amountToReturn = msg.value - _price;
-    address payable payableConsumerID = _make_payable(items[_upc].consumerID);
-    payableConsumerID.transfer(amountToReturn);
+    // address payable payableConsumerID = _make_payable(items[_upc].consumerID);
+    items[_upc].consumerID.transfer(amountToReturn);
   }
 
   // Define a modifier that checks if an item.state of a upc is Harvested
@@ -133,15 +133,15 @@ contract SupplyChain {
   // Define a function 'kill' if required
   function kill() public {
     if (msg.sender == owner) {
-      address payable payableOwner = _make_payable(owner);
-      selfdestruct(payableOwner);
+      // address payable payableOwner = _make_payable(owner);
+      selfdestruct(owner);
     }
   }
 
   // Function that allows you to convert an address into a payable address
-    function _make_payable(address x) internal pure returns (address payable) {
-        return address(uint160(x));
-    }
+    // function _make_payable(address x) internal pure returns (address payable) {
+    //     return address(uint160(x));
+    // }
 
     function toBytes(address x) internal pure returns (bytes memory b) {
     b = new bytes(20);
@@ -155,7 +155,7 @@ contract SupplyChain {
     // Add the new item as part of Harvest
     Item memory item = Item(sku, _upc, msg.sender, _originManufactoryID, _originManufactoryName, _originManufactoryInformation, _upc + sku, _productNotes, _productPrice, State.Created, address(0), address(0), address(0));
     items[_upc] = item;
-    string memory stringAddress = string(toBytes(msg.sender));
+    string memory stringAddress = string(toBytes(msg.sender));  
     itemsHistory[_upc] = ["Created", stringAddress];
     // Increment sku
     sku = sku + 1;
@@ -186,7 +186,7 @@ contract SupplyChain {
   // Call modifier to check if upc has passed previous supply chain stage
   ordered(_upc)
   // Call modifier to verify caller of this function
-  verifyCaller(items[_upc].originManufactoryID)
+  verifyCaller(msg.sender)
   {
     // Update the appropriate fields
     items[_upc].itemState = State.Shipped;
@@ -247,8 +247,8 @@ contract SupplyChain {
     items[_upc].consumerID = msg.sender;
     items[_upc].ownerID = msg.sender;
     // Transfer money to farmer
-    address payable payableManufactoryAddress = _make_payable(items[_upc].originManufactoryID);
-    payableManufactoryAddress.transfer(items[_upc].productPrice);
+    // address payableManufactoryAddress = items[_upc].originManufactoryID;
+    items[_upc].originManufactoryID.transfer(items[_upc].productPrice);
     // emit the appropriate event
     emit Bought(_upc);
   }
